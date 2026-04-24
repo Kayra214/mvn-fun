@@ -1,5 +1,6 @@
 package com.mycompany.app;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -21,13 +22,48 @@ class FactorizerImpl implements Factorizer {
     public void run(String[] args) {
         Stream.of(args)
             .forEach(arg -> {
-                System.out.println(
-                    String.format(" - n=%s -> %s%s", arg, List.of(), " (isPrime)"));
+                try {
+                    Long n = Long.parseLong(arg);
+                    List<Long> factors = factorize(n);
+                    String isPrime = factors.size() == 1 && factors.get(0).equals(n)
+                        ? " (isPrime)"
+                        : "";
+
+                    System.out.println(
+                        String.format(" - n=%s -> %s%s", arg, factors, isPrime));
+                } catch (NumberFormatException ex) {
+                    System.out.println(
+                        String.format(" - n=%s -> %s%s", arg, List.of(), " (isPrime)"));
+                }
             });
     }
 
     @Override
     public List<Long> factorize(Long n) {
-        return List.of();
+        List<Long> factors = new ArrayList<>();
+
+        if (n == null || n < 2) {
+            return factors;
+        }
+
+        while (n % 2 == 0) {
+            factors.add(2L);
+            n = n / 2;
+        }
+
+        long divisor = 3L;
+        while (divisor * divisor <= n) {
+            while (n % divisor == 0) {
+                factors.add(divisor);
+                n = n / divisor;
+            }
+            divisor += 2;
+        }
+
+        if (n > 1) {
+            factors.add(n);
+        }
+
+        return factors;
     }
 }
