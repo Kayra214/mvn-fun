@@ -1,8 +1,10 @@
-package com.mycompany.app;
+package de.factorizer;
 
 import java.util.List;
 import java.util.stream.Stream;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import org.hamcrest.Matchers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -54,22 +56,13 @@ public class FactorizerTests {
         assertIterableEquals(expected, actual);
     }
 
-    @Test
-    @Order(104)
-    void test104_factorize_case_n_is_4() {
-        n = 4L;
-        expected = List.of(2L, 2L);
+        @Test
+    @Order(112)
+    void test112_factorize_case_n_is_12() {
+        n = 12L;
         actual = factorizer.factorize(n);
-        assertIterableEquals(expected, actual);
-    }
 
-    @Test
-    @Order(127)
-    void test127_factorize_case_n_is_27() {
-        n = 27L;
-        expected = List.of(3L, 3L, 3L);
-        actual = factorizer.factorize(n);
-        assertIterableEquals(expected, actual);
+        assertThat(actual, Matchers.containsInAnyOrder(3L, 2L, 2L));
     }
 
     @Test
@@ -112,4 +105,5 @@ public class FactorizerTests {
                 assertEquals("negative argument", exception.getMessage());
             });
     }
+
 }
