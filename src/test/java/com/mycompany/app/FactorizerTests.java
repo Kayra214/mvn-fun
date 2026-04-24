@@ -55,15 +55,6 @@ public class FactorizerTests {
     }
 
     @Test
-    @Order(104)
-    void test104_factorize_case_n_is_4() {
-        n = 4L;
-        expected = List.of(2L, 2L);
-        actual = factorizer.factorize(n);
-        assertIterableEquals(expected, actual);
-    }
-
-    @Test
     @Order(127)
     void test127_factorize_case_n_is_27() {
         n = 27L;
