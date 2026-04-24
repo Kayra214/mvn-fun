@@ -1,8 +1,10 @@
-package com.mycompany.app;
+package de.factorizer;
 
 import java.util.List;
 import java.util.stream.Stream;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import org.hamcrest.Matchers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -12,9 +14,6 @@ import org.junit.jupiter.api.Test;
 
 public class FactorizerTests {
 
-    /**
-     * Object under test: reference to singleton instance of hidden implementation class.
-     */
     private final Factorizer factorizer = Factorizer.getInstance();
 
     private List<Long> expected, actual;
@@ -55,6 +54,15 @@ public class FactorizerTests {
     }
 
     @Test
+    @Order(112)
+    void test112_factorize_case_n_is_12() {
+        n = 12L;
+        actual = factorizer.factorize(n);
+
+        assertThat(actual, Matchers.containsInAnyOrder(3L, 2L, 2L));
+    }
+
+    @Test
     @Order(127)
     void test127_factorize_case_n_is_27() {
         n = 27L;
@@ -84,9 +92,9 @@ public class FactorizerTests {
     void test300_factorize_corner_cases() {
         assertTrue(factorizer.factorize(0L).isEmpty());
         assertIterableEquals(
-    List.of(2L, 3L, 3L, 7L, 11L, 31L, 151L, 331L),
-    factorizer.factorize(2147483646L)
-);
+            List.of(2L, 3L, 3L, 7L, 11L, 31L, 151L, 331L),
+            factorizer.factorize(2147483646L)
+        );
         assertIterableEquals(List.of(2147483647L), factorizer.factorize(2147483647L));
     }
 
