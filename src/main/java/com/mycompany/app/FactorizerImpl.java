@@ -42,10 +42,12 @@ class FactorizerImpl implements Factorizer {
     public List<Long> factorize(Long n) {
         List<Long> factors = new ArrayList<>();
 
-        if (n == null || n < 2) {
+        if (n == null || n < 0) {
+            throw new IllegalArgumentException("negative argument");
+        }
+        if (n < 2) {
             return factors;
         }
-
         while (n % 2 == 0) {
             factors.add(2L);
             n = n / 2;
